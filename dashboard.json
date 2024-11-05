@@ -2461,6 +2461,7 @@
         "y": 100
       },
       "id": 33,
+      "interval": "1m",
       "options": {
         "legend": {
           "calcs": [],
@@ -6033,8 +6034,12 @@
     "list": [
       {
         "current": {
-          "text": "AWS us-east-1 regional cmc",
-          "value": "AWS us-east-1 regional cmc"
+          "text": "Galaxy",
+          "value": "Galaxy"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
         },
         "definition": "label_values(ClickHouse_ServiceInfo,clickhouse_service_name)",
         "description": "",
@@ -6052,8 +6057,12 @@
       },
       {
         "current": {
-          "text": "7a5d1c90-2b06-41e7-b166-9380ebda1da9",
-          "value": "7a5d1c90-2b06-41e7-b166-9380ebda1da9"
+          "text": "923d55df-0212-4ce9-a3ed-4b7a638b0818",
+          "value": "923d55df-0212-4ce9-a3ed-4b7a638b0818"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
         },
         "definition": "label_values(ClickHouse_ServiceInfo{clickhouse_service_name=\"$service_name\"},clickhouse_service)",
         "description": "",
@@ -6086,13 +6095,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "utc",
   "title": "Prom-Exporter Instance Dashboard v2",
   "uid": "ce2e96276hjpcd1",
-  "version": 27,
+  "version": 29,
   "weekStart": ""
 }
