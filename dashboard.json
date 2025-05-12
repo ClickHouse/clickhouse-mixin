@@ -1,4 +1,47 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_LOCAL_PROMETHEUS",
+      "label": "local prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.3.0-pre"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "state-timeline",
+      "name": "State timeline",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -18,7 +61,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 7,
+  "id": null,
   "links": [],
   "panels": [
     {
@@ -86,7 +129,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -156,7 +199,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -226,7 +269,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -296,7 +339,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -400,7 +443,11 @@
           "format": "table",
           "legendFormat": "__auto",
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          }
         }
       ],
       "title": "Service Status History",
@@ -431,7 +478,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Number of databases per service. Includes system databases.",
       "fieldConfig": {
@@ -502,7 +549,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Number of tables per service. Includes system tables.",
       "fieldConfig": {
@@ -573,7 +620,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Compressed. Includes system tables.",
       "fieldConfig": {
@@ -643,7 +690,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Uncompressed, as stored in memory.",
       "fieldConfig": {
@@ -713,7 +760,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Uncompressed, as stored in memory.",
       "fieldConfig": {
@@ -796,7 +843,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Maximum CPU usage among the server pods over the specified period of time.",
       "fieldConfig": {
@@ -860,7 +907,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "lighthouse-thanos"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "(ClickHouseAsyncMetrics_OSUserTimeNormalized{\n    clickhouse_service=\"$service_id\",\n}\n+\nClickHouseAsyncMetrics_OSSystemTimeNormalized{\n    clickhouse_service=\"$service_id\",\n}) * 100",
@@ -878,7 +925,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Maximum server memory usage among the server pods over the specified period of time.",
       "fieldConfig": {
@@ -942,7 +989,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "lighthouse-thanos"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "ClickHouseMetrics_MemoryTracking{\n    clickhouse_service=\"$service_id\",\n}\n/\nignoring(table)\nClickHouseAsyncMetrics_CGroupMemoryTotal{\n    clickhouse_service=\"$service_id\",\n} * 100",
@@ -960,7 +1007,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Maximum number of parts per partition over the specified period of time.",
       "fieldConfig": {
@@ -1041,7 +1088,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Maximum percentage of the failed SELECTs over the specified period of time.",
       "fieldConfig": {
@@ -1106,7 +1153,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "lighthouse-thanos"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1125,7 +1172,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Maximum percentage of the failed INSERTs over the specified period of time (both synchronous and asynchronous).",
       "fieldConfig": {
@@ -1141,8 +1188,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -1189,7 +1235,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "lighthouse-thanos"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1208,7 +1254,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "Maximum number of log message with ERROR (and higher) severity over the specified period of time.",
       "fieldConfig": {
@@ -1224,8 +1270,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -1267,7 +1312,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "lighthouse-thanos"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1299,7 +1344,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -1347,8 +1392,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1398,7 +1442,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -1446,8 +1490,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1497,7 +1540,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -1545,8 +1588,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1596,7 +1638,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -1644,8 +1686,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1695,7 +1736,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "${DS_LOCAL_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -1742,8 +1783,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1800,7 +1840,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_NetworkSendBytes{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -1877,8 +1917,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1911,7 +1950,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_Query{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -1975,8 +2014,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2009,7 +2047,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "increase(ClickHouseProfileEvents_QueryTimeMicroseconds{clickhouse_service=\"$service_id\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_Query{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -2072,8 +2110,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2106,7 +2143,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "irate(ClickHouseProfileEvents_QueryMemoryLimitExceeded{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -2168,8 +2205,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2202,7 +2238,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_FailedQuery{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -2264,8 +2300,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2298,7 +2333,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_SelectQuery{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -2360,8 +2395,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2394,7 +2428,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_InsertQuery{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -2456,8 +2490,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2490,7 +2523,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_FailedSelectQuery{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -2552,8 +2585,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2585,7 +2617,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_FailedInsertQuery{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -2681,7 +2713,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "increase(ClickHouseProfileEvents_SelectQueryTimeMicroseconds{clickhouse_service=\"$service_id\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_SelectQuery{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -2777,7 +2809,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "increase(ClickHouseProfileEvents_InsertQueryTimeMicroseconds{clickhouse_service=\"$service_id\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_InsertQuery{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -2872,7 +2904,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_AsyncInsertQuery{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -2967,7 +2999,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_FailedAsyncInsertQuery{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -3062,7 +3094,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "ClickHouseMetrics_PendingAsyncInsert{clickhouse_service=\"$service_id\"}",
@@ -3170,7 +3202,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_SelectedParts{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -3265,7 +3297,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_SelectedRanges{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -3360,7 +3392,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_SelectedMarks{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -3455,7 +3487,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_SelectedRows{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -3550,7 +3582,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_SelectedRows{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -3658,7 +3690,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_InsertedRows{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -3754,7 +3786,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_InsertedBytes{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -3849,7 +3881,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterRows{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -3944,7 +3976,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterBlocks{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -4039,7 +4071,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterUncompressedBytes{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -4134,7 +4166,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterCompressedBytes{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -4229,7 +4261,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_RejectedInserts{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -4324,7 +4356,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_DelayedInserts{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -4420,7 +4452,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "increase(ClickHouseProfileEvents_DelayedInsertMilliseconds{clickhouse_service=\"$service_id\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_DelayedInserts{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -4528,7 +4560,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_Merge{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -4622,7 +4654,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "ClickHouseMetrics_PartMutation{clickhouse_service=\"$service_id\"}",
@@ -4717,7 +4749,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "ClickHouseMetrics_MergesMutationsMemoryTracking{clickhouse_service=\"$service_id\"}",
@@ -4813,7 +4845,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "increase(ClickHouseProfileEvents_MergesTimeMilliseconds{clickhouse_service=\"$service_id\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_Merge{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -4908,7 +4940,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_MergedRows{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -5003,7 +5035,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "rate(ClickHouseProfileEvents_MergedUncompressedBytes{clickhouse_service=\"$service_id\"}[$__rate_interval])",
@@ -5099,7 +5131,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_LOCAL_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "ClickHouseMetrics_DiskSpaceReservedForMerge{clickhouse_service=\"$service_id\"}",
@@ -5205,7 +5237,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "ClickHouseMetrics_FilesystemCacheSize{clickhouse_service=\"$service_id\"}",
@@ -5301,7 +5333,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "rate(ClickHouseProfileEvents_CachedReadBufferReadFromCacheBytes{clickhouse_service=\"$service_id\"}[$__rate_interval])\n/\n(rate(ClickHouseProfileEvents_CachedReadBufferReadFromCacheBytes{clickhouse_service=\"$service_id\"}[$__rate_interval])\n+\nrate(ClickHouseProfileEvents_CachedReadBufferReadFromSourceBytes{clickhouse_service=\"$service_id\"}[$__rate_interval]))",
@@ -5399,7 +5431,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "rate(ClickHouseProfileEvents_OSReadChars{clickhouse_service=\"$service_id\"}[$__rate_interval])\n/\n(rate(ClickHouseProfileEvents_OSReadChars{clickhouse_service=\"$service_id\"}[$__rate_interval])\n+\nrate(ClickHouseProfileEvents_ReadBufferFromS3Bytes{clickhouse_service=\"$service_id\"}[$__rate_interval]))",
@@ -5497,7 +5529,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "rate(ClickHouseProfileEvents_MarkCacheHits{clickhouse_service=\"$service_id\"}[$__rate_interval])\n/\n(rate(ClickHouseProfileEvents_MarkCacheHits{clickhouse_service=\"$service_id\"}[$__rate_interval])\n+\nrate(ClickHouseProfileEvents_MarkCacheMisses{clickhouse_service=\"$service_id\"}[$__rate_interval]))",
@@ -5608,7 +5640,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "max(ClickHouseAsyncMetrics_TotalPartsOfMergeTreeTables{clickhouse_service=\"$service_id\"})",
@@ -5703,7 +5735,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "ClickHouseMetrics_PartsPreActive{clickhouse_service=\"$service_id\"}",
@@ -5798,7 +5830,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "ClickHouseMetrics_PartsTemporary{clickhouse_service=\"$service_id\"}",
@@ -5894,7 +5926,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "ClickHouseMetrics_PartsOutdated{clickhouse_service=\"$service_id\"}",
@@ -5990,7 +6022,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "ClickHouseMetrics_PartsActive{clickhouse_service=\"$service_id\"}",
@@ -6086,7 +6118,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "ClickHouseMetrics_PartsCompact{clickhouse_service=\"$service_id\"}",
@@ -6182,7 +6214,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "ClickHouseMetrics_PartsDeleting{clickhouse_service=\"$service_id\"}",
@@ -6278,7 +6310,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${DS_LOCAL_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "ClickHouseMetrics_PartsWide{clickhouse_service=\"$service_id\"}",
@@ -6295,17 +6327,13 @@
       "type": "row"
     }
   ],
-  "preload": false,
   "refresh": "30s",
   "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {
-          "text": "Galaxy",
-          "value": "Galaxy"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
           "uid": "${datasource}"
@@ -6325,13 +6353,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "text": "923d55df-0212-4ce9-a3ed-4b7a638b0818",
-          "value": "923d55df-0212-4ce9-a3ed-4b7a638b0818"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${datasource}"
+          "uid": "${DS_LOCAL_PROMETHEUS}"
         },
         "definition": "label_values(ClickHouse_ServiceInfo{clickhouse_service_name=\"$service_name\"},clickhouse_service)",
         "description": "",
@@ -6348,10 +6373,7 @@
         "type": "query"
       },
       {
-        "current": {
-          "text": "local prometheus",
-          "value": "de2e8sk73oxs0f"
-        },
+        "current": {},
         "description": "",
         "label": "datasource",
         "name": "datasource",
@@ -6371,6 +6393,6 @@
   "timezone": "utc",
   "title": "Prom-Exporter Instance Dashboard v2",
   "uid": "ce2e96276hjpcd1",
-  "version": 46,
+  "version": 2,
   "weekStart": ""
 }
