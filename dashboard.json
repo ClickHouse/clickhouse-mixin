@@ -910,7 +910,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(ClickHouseAsyncMetrics_OSUserTimeNormalized{\n    clickhouse_service=\"$service_id\",\n}\n+\nClickHouseAsyncMetrics_OSSystemTimeNormalized{\n    clickhouse_service=\"$service_id\",\n}) * 100",
+          "expr": "(ClickHouseAsyncMetrics_CGroupUserTimeNormalized{\n    clickhouse_service=\"$service_id\",\n}\n+\nClickHouseAsyncMetrics_CGroupSystemTimeNormalized{\n    clickhouse_service=\"$service_id\",\n}) * 100",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{instance}}",
@@ -1526,7 +1526,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "ClickHouseAsyncMetrics_OSUserTimeNormalized{clickhouse_service=\"$service_id\"} + ClickHouseAsyncMetrics_OSSystemTimeNormalized{clickhouse_service=\"$service_id\"}",
+          "expr": "ClickHouseAsyncMetrics_CGroupUserTimeNormalized{clickhouse_service=\"$service_id\"} + ClickHouseAsyncMetrics_CGroupSystemTimeNormalized{clickhouse_service=\"$service_id\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "{{instance}}",
