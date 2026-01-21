@@ -15,12 +15,12 @@ It also supports
 The BYOC (Bring Your Own Cloud) dashboard is automatically generated from `dashboard.json` via GitHub Actions whenever changes are pushed to either `dashboard.json` or the converter script.
 
 The CI workflow will:
-- Convert `dashboard.json` to `byoc.json`
+- Convert `dashboard.json` to `dashboard_byoc.json`
 - Automatically commit and push the generated file back to the repository
 - Upload the generated dashboard as a workflow artifact for download
 
 To manually generate the BYOC dashboard locally, run:
 
 ```shell
-python3 .github/scripts/convert.py dashboard.json byoc.json
+python3 .github/scripts/convert.py dashboard.json dashboard_byoc.json
 ```
