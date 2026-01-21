@@ -1,0 +1,57 @@
+name: Convert Dashboard to BYOC
+
+on:
+  push:
+    paths:
+      - "dashboard.json"
+      - ".github/scripts/convert.py"
+  pull_request:
+    paths:
+      - "dashboard.json"
+      - ".github/scripts/convert.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run converter
+        run: python3 .github/scripts/convert.py dashboard.json byoc.json
+
+      - name: Check if byoc.json changed
+        id: check_changes
+        run: |
+          if git status --porcelain byoc.json | grep -q .; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload byoc.json artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: byoc-dashboard
+          path: byoc.json
+
+      - name: Commit and push changes
+        if: github.event_name == 'push' && steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add byoc.json
+          git commit -m "chore: update byoc.json from dashboard.json [skip ci]"
+          git push
