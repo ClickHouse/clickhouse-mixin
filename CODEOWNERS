@@ -1,3 +1,3 @@
-# ClickHouse Private dashboard
+# ClickHouse Private Mixin
 /.github/scripts/convert_private.py @ClickHouse/airgap
 /dashboard_private.json @ClickHouse/airgap
