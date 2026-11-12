@@ -28,9 +28,9 @@ python3 .github/scripts/convert.py dashboard.json dashboard_byoc.json
 ## ClickHouse Private Dashboard
 
 The ClickHouse Private dashboard (`dashboard_private.json`) is generated from `dashboard.json` by the same workflow.
-It filters on the Kubernetes `namespace` and the `app="c-<service-name>-server"` pod label, both added by the
-ClickHouse operator's PodMonitor. Select the namespace and service name in the dashboard variables. Panels that rely on
-the Cloud-only `ClickHouse_ServiceInfo` metric are removed.
+It filters on the Kubernetes `namespace` and the `app` pod label (`c-<service-name>-server` and
+`c-<service-name>-keeper`), both added by the ClickHouse operator's PodMonitor. Select the namespace and service name in
+the dashboard variables. Panels that rely on the Cloud-only `ClickHouse_ServiceInfo` metric are removed.
 
 To manually generate the Private dashboard locally, run:
 

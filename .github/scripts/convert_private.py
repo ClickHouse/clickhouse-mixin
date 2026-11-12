@@ -3,7 +3,7 @@
 
 ClickHouse Private has no ClickHouse_ServiceInfo metric and no meaningful control plane ID.
 Services are identified by their Kubernetes namespace and the `app` pod label
-(`c-<service-name>-server`). The namespace is selectable because it is not guaranteed
+(`c-<service-name>-server` or `c-<service-name>-keeper`). The namespace is selectable because it is not guaranteed
 to follow the `ns-<service-name>` convention.
 """
 
@@ -13,7 +13,7 @@ from pathlib import Path
 
 PANELS_TO_REMOVE = {3, 78, 79, 82, 83}
 CLOUD_SELECTOR = 'clickhouse_service="$service_id"'
-PRIVATE_SELECTOR = 'namespace="$namespace", app="c-$service_name-server"'
+PRIVATE_SELECTOR = 'namespace="$namespace", app=~"c-$service_name-(server|keeper)"'
 LEFTOVER_MARKERS = ("clickhouse_service", "$service_id", "ClickHouse_ServiceInfo")
 
 SERVER_SERIES = 'ClickHouseAsyncMetrics_Uptime{app_kubernetes_io_name="clickhouse-server"}'

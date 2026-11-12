@@ -137,7 +137,7 @@
                     },
                     "editorMode": "code",
                     "exemplar": false,
-                    "expr": "max(ClickHouseAsyncMetrics_NumberOfDatabases{namespace=\"$namespace\", app=\"c-$service_name-server\"})",
+                    "expr": "max(ClickHouseAsyncMetrics_NumberOfDatabases{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"})",
                     "hide": false,
                     "instant": true,
                     "legendFormat": "{{pod}}",
@@ -208,7 +208,7 @@
                     },
                     "editorMode": "code",
                     "exemplar": false,
-                    "expr": "max(ClickHouseAsyncMetrics_NumberOfTables{namespace=\"$namespace\", app=\"c-$service_name-server\"})",
+                    "expr": "max(ClickHouseAsyncMetrics_NumberOfTables{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"})",
                     "hide": false,
                     "instant": true,
                     "legendFormat": "{{pod}}",
@@ -278,7 +278,7 @@
                         "uid": "${datasource}"
                     },
                     "editorMode": "code",
-                    "expr": "avg by () (ClickHouseAsyncMetrics_TotalBytesOfMergeTreeTables{namespace=\"$namespace\", app=\"c-$service_name-server\"})",
+                    "expr": "avg by () (ClickHouseAsyncMetrics_TotalBytesOfMergeTreeTables{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"})",
                     "hide": false,
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -348,7 +348,7 @@
                         "uid": "${datasource}"
                     },
                     "editorMode": "code",
-                    "expr": "sum(rate(ClickHouseProfileEvents_SelectedBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval]))",
+                    "expr": "sum(rate(ClickHouseProfileEvents_SelectedBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval]))",
                     "hide": false,
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -418,7 +418,7 @@
                         "uid": "${datasource}"
                     },
                     "editorMode": "code",
-                    "expr": "sum(rate(ClickHouseProfileEvents_MergeTreeDataWriterUncompressedBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval]))",
+                    "expr": "sum(rate(ClickHouseProfileEvents_MergeTreeDataWriterUncompressedBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval]))",
                     "hide": false,
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -512,7 +512,7 @@
                         "uid": "${datasource}"
                     },
                     "editorMode": "code",
-                    "expr": "(ClickHouseAsyncMetrics_CGroupUserTimeNormalized{\n    namespace=\"$namespace\", app=\"c-$service_name-server\",\n}\n+\nClickHouseAsyncMetrics_CGroupSystemTimeNormalized{\n    namespace=\"$namespace\", app=\"c-$service_name-server\",\n}) * 100",
+                    "expr": "(ClickHouseAsyncMetrics_CGroupUserTimeNormalized{\n    namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\",\n}\n+\nClickHouseAsyncMetrics_CGroupSystemTimeNormalized{\n    namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\",\n}) * 100",
                     "format": "time_series",
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -594,7 +594,7 @@
                         "uid": "${datasource}"
                     },
                     "editorMode": "code",
-                    "expr": "ClickHouseMetrics_MemoryTracking{\n    namespace=\"$namespace\", app=\"c-$service_name-server\",\n}\n/\nignoring(table)\nClickHouseAsyncMetrics_CGroupMemoryTotal{\n    namespace=\"$namespace\", app=\"c-$service_name-server\",\n} * 100",
+                    "expr": "ClickHouseMetrics_MemoryTracking{\n    namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\",\n}\n/\nignoring(table)\nClickHouseAsyncMetrics_CGroupMemoryTotal{\n    namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\",\n} * 100",
                     "format": "time_series",
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -675,7 +675,7 @@
                     },
                     "editorMode": "code",
                     "exemplar": false,
-                    "expr": "max(ClickHouseAsyncMetrics_MaxPartCountForPartition{namespace=\"$namespace\", app=\"c-$service_name-server\"})",
+                    "expr": "max(ClickHouseAsyncMetrics_MaxPartCountForPartition{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"})",
                     "format": "time_series",
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -759,7 +759,7 @@
                     },
                     "editorMode": "code",
                     "exemplar": false,
-                    "expr": "rate(ClickHouseProfileEvents_FailedSelectQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval]) / rate(ClickHouseProfileEvents_SelectQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_FailedSelectQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval]) / rate(ClickHouseProfileEvents_SelectQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "format": "time_series",
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -841,7 +841,7 @@
                     },
                     "editorMode": "code",
                     "exemplar": false,
-                    "expr": "(\n    rate(ClickHouseProfileEvents_FailedInsertQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval]) \n    + \n    rate(ClickHouseProfileEvents_FailedAsyncInsertQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])\n)\n/\n(\n    rate(ClickHouseProfileEvents_AsyncInsertQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])\n    +\n    rate(ClickHouseProfileEvents_InsertQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])\n)",
+                    "expr": "(\n    rate(ClickHouseProfileEvents_FailedInsertQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval]) \n    + \n    rate(ClickHouseProfileEvents_FailedAsyncInsertQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])\n)\n/\n(\n    rate(ClickHouseProfileEvents_AsyncInsertQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])\n    +\n    rate(ClickHouseProfileEvents_InsertQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])\n)",
                     "format": "time_series",
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -918,7 +918,7 @@
                     },
                     "editorMode": "code",
                     "exemplar": false,
-                    "expr": "increase(ClickHouseProfileEvents_LogError{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "increase(ClickHouseProfileEvents_LogError{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "format": "time_series",
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -1030,7 +1030,7 @@
                         "uid": "${datasource}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_OSCPUVirtualTimeMicroseconds{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval]) / 1000000",
+                    "expr": "rate(ClickHouseProfileEvents_OSCPUVirtualTimeMicroseconds{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval]) / 1000000",
                     "hide": false,
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -1128,7 +1128,7 @@
                         "uid": "${datasource}"
                     },
                     "editorMode": "code",
-                    "expr": "ClickHouseAsyncMetrics_CGroupUserTimeNormalized{namespace=\"$namespace\", app=\"c-$service_name-server\"} + ClickHouseAsyncMetrics_CGroupSystemTimeNormalized{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                    "expr": "ClickHouseAsyncMetrics_CGroupUserTimeNormalized{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"} + ClickHouseAsyncMetrics_CGroupSystemTimeNormalized{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                     "hide": false,
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -1226,7 +1226,7 @@
                         "uid": "${datasource}"
                     },
                     "editorMode": "code",
-                    "expr": "ClickHouseMetrics_MemoryTracking{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                    "expr": "ClickHouseMetrics_MemoryTracking{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                     "hide": false,
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -1324,7 +1324,7 @@
                         "uid": "${datasource}"
                     },
                     "editorMode": "code",
-                    "expr": "ClickHouseMetrics_TCPConnection{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                    "expr": "ClickHouseMetrics_TCPConnection{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                     "hide": false,
                     "instant": false,
                     "legendFormat": "{{pod}}",
@@ -1434,7 +1434,7 @@
                         "uid": "${datasource}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_NetworkReceiveBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_NetworkReceiveBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}} received",
                     "range": true,
                     "refId": "A"
@@ -1445,7 +1445,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_NetworkSendBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_NetworkSendBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "hide": false,
                     "instant": false,
                     "legendFormat": "{{pod}} sent",
@@ -1555,7 +1555,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_Query{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_Query{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "hide": false,
                     "legendFormat": "{{pod}}",
                     "range": true,
@@ -1652,7 +1652,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "increase(ClickHouseProfileEvents_QueryTimeMicroseconds{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_Query{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "increase(ClickHouseProfileEvents_QueryTimeMicroseconds{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_Query{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -1748,7 +1748,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "irate(ClickHouseProfileEvents_QueryMemoryLimitExceeded{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "irate(ClickHouseProfileEvents_QueryMemoryLimitExceeded{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -1843,7 +1843,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_FailedQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_FailedQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -1938,7 +1938,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_SelectQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_SelectQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2033,7 +2033,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_InsertQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_InsertQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2128,7 +2128,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_FailedSelectQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_FailedSelectQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2222,7 +2222,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_FailedInsertQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_FailedInsertQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2318,7 +2318,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "increase(ClickHouseProfileEvents_SelectQueryTimeMicroseconds{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_SelectQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "increase(ClickHouseProfileEvents_SelectQueryTimeMicroseconds{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_SelectQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2414,7 +2414,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "increase(ClickHouseProfileEvents_InsertQueryTimeMicroseconds{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_InsertQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "increase(ClickHouseProfileEvents_InsertQueryTimeMicroseconds{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_InsertQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2509,7 +2509,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_AsyncInsertQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_AsyncInsertQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2604,7 +2604,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_FailedAsyncInsertQuery{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_FailedAsyncInsertQuery{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2699,7 +2699,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "ClickHouseMetrics_PendingAsyncInsert{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                    "expr": "ClickHouseMetrics_PendingAsyncInsert{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2807,7 +2807,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_SelectedParts{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_SelectedParts{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2902,7 +2902,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_SelectedRanges{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_SelectedRanges{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -2997,7 +2997,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_SelectedMarks{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_SelectedMarks{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -3092,7 +3092,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_SelectedRows{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_SelectedRows{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -3187,7 +3187,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_SelectedRows{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_SelectedRows{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -3295,7 +3295,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_InsertedRows{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_InsertedRows{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -3391,7 +3391,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_InsertedBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_InsertedBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -3486,7 +3486,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterRows{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterRows{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -3581,7 +3581,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterBlocks{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterBlocks{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -3676,7 +3676,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterUncompressedBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterUncompressedBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -3771,7 +3771,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterCompressedBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_MergeTreeDataWriterCompressedBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -3866,7 +3866,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_RejectedInserts{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_RejectedInserts{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -3961,7 +3961,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_DelayedInserts{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_DelayedInserts{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -4057,7 +4057,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "increase(ClickHouseProfileEvents_DelayedInsertsMilliseconds{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_DelayedInserts{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "increase(ClickHouseProfileEvents_DelayedInsertsMilliseconds{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_DelayedInserts{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -4165,7 +4165,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_Merge{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_Merge{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -4259,7 +4259,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "ClickHouseMetrics_PartMutation{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                    "expr": "ClickHouseMetrics_PartMutation{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -4354,7 +4354,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "ClickHouseMetrics_MergesMutationsMemoryTracking{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                    "expr": "ClickHouseMetrics_MergesMutationsMemoryTracking{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -4450,7 +4450,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "increase(ClickHouseProfileEvents_MergeTotalMilliseconds{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_Merge{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "increase(ClickHouseProfileEvents_MergeTotalMilliseconds{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])  / increase(ClickHouseProfileEvents_Merge{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -4545,7 +4545,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_MergedRows{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_MergedRows{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -4640,7 +4640,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "rate(ClickHouseProfileEvents_MergedUncompressedBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])",
+                    "expr": "rate(ClickHouseProfileEvents_MergedUncompressedBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -4736,7 +4736,7 @@
                         "uid": "${DS_LOCAL_PROMETHEUS}"
                     },
                     "editorMode": "code",
-                    "expr": "ClickHouseMetrics_DiskSpaceReservedForMerge{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                    "expr": "ClickHouseMetrics_DiskSpaceReservedForMerge{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                     "legendFormat": "{{pod}}",
                     "range": true,
                     "refId": "A"
@@ -4842,7 +4842,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "ClickHouseMetrics_FilesystemCacheSize{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                            "expr": "ClickHouseMetrics_FilesystemCacheSize{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                             "legendFormat": "{{pod}}",
                             "range": true,
                             "refId": "A"
@@ -4938,7 +4938,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "rate(ClickHouseProfileEvents_CachedReadBufferReadFromCacheBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])\n/\n(rate(ClickHouseProfileEvents_CachedReadBufferReadFromCacheBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])\n+\nrate(ClickHouseProfileEvents_CachedReadBufferReadFromSourceBytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval]))",
+                            "expr": "rate(ClickHouseProfileEvents_CachedReadBufferReadFromCacheBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])\n/\n(rate(ClickHouseProfileEvents_CachedReadBufferReadFromCacheBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])\n+\nrate(ClickHouseProfileEvents_CachedReadBufferReadFromSourceBytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval]))",
                             "hide": false,
                             "instant": false,
                             "legendFormat": "{{pod}}",
@@ -5036,7 +5036,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "rate(ClickHouseProfileEvents_OSReadChars{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])\n/\n(rate(ClickHouseProfileEvents_OSReadChars{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])\n+\nrate(ClickHouseProfileEvents_ReadBufferFromS3Bytes{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval]))",
+                            "expr": "rate(ClickHouseProfileEvents_OSReadChars{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])\n/\n(rate(ClickHouseProfileEvents_OSReadChars{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])\n+\nrate(ClickHouseProfileEvents_ReadBufferFromS3Bytes{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval]))",
                             "hide": false,
                             "instant": false,
                             "legendFormat": "{{pod}}",
@@ -5134,7 +5134,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "rate(ClickHouseProfileEvents_MarkCacheHits{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])\n/\n(rate(ClickHouseProfileEvents_MarkCacheHits{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval])\n+\nrate(ClickHouseProfileEvents_MarkCacheMisses{namespace=\"$namespace\", app=\"c-$service_name-server\"}[$__rate_interval]))",
+                            "expr": "rate(ClickHouseProfileEvents_MarkCacheHits{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])\n/\n(rate(ClickHouseProfileEvents_MarkCacheHits{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval])\n+\nrate(ClickHouseProfileEvents_MarkCacheMisses{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}[$__rate_interval]))",
                             "hide": false,
                             "instant": false,
                             "legendFormat": "{{pod}}",
@@ -5245,7 +5245,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "max(ClickHouseAsyncMetrics_TotalPartsOfMergeTreeTables{namespace=\"$namespace\", app=\"c-$service_name-server\"})",
+                            "expr": "max(ClickHouseAsyncMetrics_TotalPartsOfMergeTreeTables{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"})",
                             "legendFormat": "Total parts",
                             "range": true,
                             "refId": "A"
@@ -5340,7 +5340,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "ClickHouseMetrics_PartsPreActive{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                            "expr": "ClickHouseMetrics_PartsPreActive{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                             "legendFormat": "{{pod}}",
                             "range": true,
                             "refId": "A"
@@ -5435,7 +5435,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "ClickHouseMetrics_PartsTemporary{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                            "expr": "ClickHouseMetrics_PartsTemporary{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                             "legendFormat": "{{pod}}",
                             "range": true,
                             "refId": "A"
@@ -5531,7 +5531,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "ClickHouseMetrics_PartsOutdated{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                            "expr": "ClickHouseMetrics_PartsOutdated{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                             "legendFormat": "{{pod}}",
                             "range": true,
                             "refId": "A"
@@ -5627,7 +5627,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "ClickHouseMetrics_PartsActive{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                            "expr": "ClickHouseMetrics_PartsActive{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                             "legendFormat": "{{pod}}",
                             "range": true,
                             "refId": "A"
@@ -5723,7 +5723,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "ClickHouseMetrics_PartsCompact{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                            "expr": "ClickHouseMetrics_PartsCompact{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                             "legendFormat": "{{pod}}",
                             "range": true,
                             "refId": "A"
@@ -5819,7 +5819,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "ClickHouseMetrics_PartsDeleting{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                            "expr": "ClickHouseMetrics_PartsDeleting{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                             "legendFormat": "{{pod}}",
                             "range": true,
                             "refId": "A"
@@ -5915,7 +5915,7 @@
                                 "uid": "${DS_LOCAL_PROMETHEUS}"
                             },
                             "editorMode": "code",
-                            "expr": "ClickHouseMetrics_PartsWide{namespace=\"$namespace\", app=\"c-$service_name-server\"}",
+                            "expr": "ClickHouseMetrics_PartsWide{namespace=\"$namespace\", app=~\"c-$service_name-(server|keeper)\"}",
                             "legendFormat": "{{pod}}",
                             "range": true,
                             "refId": "A"
