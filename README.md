@@ -12,10 +12,10 @@ It also supports
 
 ## BYOC Dashboard
 
-The BYOC (Bring Your Own Cloud) dashboard is automatically generated from `dashboard.json` via GitHub Actions whenever changes are pushed to either `dashboard.json` or the converter script.
+The BYOC (Bring Your Own Cloud) & Private (self-hosted enterprise ClickHouse) dashboards are automatically generated from `dashboard.json` via GitHub Actions whenever changes are pushed to either `dashboard.json` or the converter scripts.
 
 The CI workflow will:
-- Convert `dashboard.json` to `dashboard_byoc.json`
+- Convert `dashboard.json` to `dashboard_byoc.json` & `dashboard_private.json`
 - Automatically commit and push the generated file back to the repository
 - Upload the generated dashboard as a workflow artifact for download
 
@@ -24,13 +24,6 @@ To manually generate the BYOC dashboard locally, run:
 ```shell
 python3 .github/scripts/convert.py dashboard.json dashboard_byoc.json
 ```
-
-## ClickHouse Private Dashboard
-
-The ClickHouse Private dashboard (`dashboard_private.json`) is generated from `dashboard.json` by the same workflow.
-It filters on the Kubernetes `namespace` and the `app` pod label (`c-<service-name>-server` and
-`c-<service-name>-keeper`), both added by the ClickHouse operator's PodMonitor. Select the namespace and service name in
-the dashboard variables. Panels that rely on the Cloud-only `ClickHouse_ServiceInfo` metric are removed.
 
 To manually generate the Private dashboard locally, run:
 
