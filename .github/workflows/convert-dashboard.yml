@@ -1,14 +1,16 @@
-name: Convert Dashboard to BYOC
+name: Convert Dashboard to BYOC and Private
 
 on:
   push:
     paths:
       - "dashboard.json"
       - ".github/scripts/convert.py"
+      - ".github/scripts/convert_private.py"
   pull_request:
     paths:
       - "dashboard.json"
       - ".github/scripts/convert.py"
+      - ".github/scripts/convert_private.py"
   workflow_dispatch:
 
 permissions:
@@ -30,16 +32,20 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Backup old file
-        run: cp dashboard_byoc.json dashboard_byoc.json.old || touch dashboard_byoc.json.old
+      - name: Backup old files
+        run: |
+          cp dashboard_byoc.json dashboard_byoc.json.old || touch dashboard_byoc.json.old
+          cp dashboard_private.json dashboard_private.json.old || touch dashboard_private.json.old
 
-      - name: Run converter
-        run: python3 .github/scripts/convert.py dashboard.json dashboard_byoc.json
+      - name: Run converters
+        run: |
+          python3 .github/scripts/convert.py dashboard.json dashboard_byoc.json
+          python3 .github/scripts/convert_private.py dashboard.json dashboard_private.json
 
-      - name: Check if dashboard_byoc.json changed
+      - name: Check if generated dashboards changed
         id: check_changes
         run: |
-          if cmp -s dashboard_byoc.json.old dashboard_byoc.json; then
+          if cmp -s dashboard_byoc.json.old dashboard_byoc.json && cmp -s dashboard_private.json.old dashboard_private.json; then
             echo "Files are identical"
             echo "changed=false" >> $GITHUB_OUTPUT
           else
@@ -54,11 +60,17 @@ jobs:
           name: byoc-dashboard
           path: dashboard_byoc.json
 
+      - name: Upload dashboard_private.json artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: private-dashboard
+          path: dashboard_private.json
+
       - name: Commit and push changes
         if: steps.check_changes.outputs.changed == 'true'
         run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add dashboard_byoc.json
-          git commit -m "chore: update dashboard_byoc.json from dashboard.json [skip ci]"
+          git add dashboard_byoc.json dashboard_private.json
+          git commit -m "chore: update generated dashboards from dashboard.json [skip ci]"
           git push origin HEAD:${{ github.head_ref || github.ref_name }}
